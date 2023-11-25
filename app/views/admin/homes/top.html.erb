@@ -1,0 +1,43 @@
+<div class = "d-flex justify-content-between">
+  <h4 class = "field m-3">投稿内容一覧</h4>
+</div>
+<div>
+  <table class = "table" >
+    <thead class = "table-info">
+      <tr>
+        <th>ID</th>
+        <th>投稿日時</th>
+        <th>タイトル</th>
+        <th>タグ</th>
+        <th></th>
+        <th></th>
+      </tr>
+    </thead>
+    <tbody>
+      <% @posts.each do |f| %>
+      <tr>
+        <td><%= f.id %></td>
+        <td><%= f.get_posted_date %></td>
+        <td>
+          <%= link_to admin_post_path(f.id) do %>
+            <%= f.title %>
+          <% end %>
+        </td>
+        <td>
+          <%= render 'layouts/admin_post_tag_list', tag_list: f.tag_list %>
+        </td>
+        <td>
+          <i class="fas fa-heart"></i><%= f.favorites.count %> いいね
+        </td>
+        <td>
+          コメント ： <%= f.comments.count %> 件
+        </td>
+      </tr>
+      <% end %>
+    </tbody>
+  </table>
+</div>
+
+<div class = "d-flex justify-content-center">
+  <%= paginate @posts %>
+</div>

@@ -1,0 +1,38 @@
+<h2>ユーザー新規登録</h2>
+<%= form_for(resource, as: resource_name, url: registration_path(resource_name)) do |f| %>
+  <%= render 'layouts/error_messages', model: f.object %>
+  <div class="field">
+    <strong><%= f.label :name, "ユーザー名（ニックネーム）" %></strong></br>
+    <%= f.text_field :name, :placeholder => "ねこは太郎", maxlength: "20"  %>
+  </div>
+  <div class="field">
+    <strong><%= f.label :email, "メールアドレス" %></strong></br>
+    <%= f.email_field :email, :placeholder => "nekoha@example.co.jp" %>
+  </div>
+  <div class="field">
+    <strong><%= f.label :self_introduction, "自己紹介文" %></strong></br>
+    <%= f.text_field :self_introduction, :placeholder => "よろしくお願いします。", value: "よろしくお願いします。" %>
+  </div>
+
+  <div class="field">
+    <strong>
+    <%= f.label :password, "パスワード" %>
+    <% if @minimum_password_length %>
+      (<%= @minimum_password_length %>文字以上)
+    <% end %>
+    </strong>
+    </br>
+    <%= f.password_field :password, autocomplete: "new-password" %>
+  </div>
+
+  <div class="field">
+    <strong><%= f.label :password_confirmation, "パスワード (確認用)"  %></strong></br>
+    <%= f.password_field :password_confirmation, autocomplete: "new-password" %>
+  </div>
+  <br/>
+  <div class="actions">
+    <%= f.submit "新規登録", class: "btn btn-success" %>
+  </div>
+<% end %>
+<br/>
+<%= render "public/shared/links" %>

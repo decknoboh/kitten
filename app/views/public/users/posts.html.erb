@@ -1,0 +1,37 @@
+<div class = "row">
+  <% if user_signed_in? && !current_user.is_deleted %>
+     <%= render 'layouts/users_sidebar' %>
+  <% end %>
+  <div class = "field ml-5">
+    <h4 class = "field m-3"><%= @user_name %> さんの投稿内容一覧</h4>
+    <table class = "table" >
+      <thead class = "table-info">
+        <tr>
+          <th>投稿日時</th>
+          <th>タイトル</th>
+          <th></th>
+        </tr>
+      </thead>
+      <tbody>
+        <% @posts.each do |f| %>
+          <tr>
+            <td><%= f.get_posted_date %></td>
+            <td>
+              <%= link_to post_path(f.id) do %>
+                <%= f.title %>
+              <% end %>
+            </td>
+            <td>
+              <% if user_signed_in? && !current_user.is_deleted %>
+                <% if f.user_id == current_user.id %>
+                  <%= link_to "編集", edit_post_path(f.id), method: :get , class: "btn btn-success" %>
+                <% end %>
+              <% end %>
+            </td>
+          </tr>
+        <% end %>
+      </tbody>
+    </table>
+    <%= paginate @posts %>
+  </div>
+</div>

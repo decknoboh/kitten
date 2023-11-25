@@ -1,0 +1,110 @@
+<div class = "row">
+  <% if user_signed_in? && !current_user.is_deleted %>
+     <%= render 'layouts/users_sidebar' %>
+  <% end %>
+  <div class = "field my-2 offset-1">
+    <div class = "items_image offset-1">
+      <h4><%= @post.title %></h4>
+      <%= image_tag @post.get_show_post_image(300) %>
+    </div>
+    <div class = "main my-3 offset-1">
+      <div class="d-flex justify-content-between">
+        <strong class>ユーザー名</strong>
+        <%= link_to user_path(@post.user_id) do %>
+          <%= @post.user.name %>
+        <% end %>
+      </div>
+      <div class="d-flex justify-content-between my-4">
+        <strong class>投稿日時</strong>
+        <%= @post.get_posted_date %>
+      </div>
+      <div class="col-md d-flex justify-content-start">
+        <table class = "table table-borderless">
+          <td><%= render 'layouts/post_tag_list', tag_list: @post.tag_list %></td>
+        </table>
+      </div>
+      <div class="d-flex justify-content-between my-4">
+        <strong class>投稿コメント</strong>
+      </div>
+      <div class="col-md d-flex justify-content-between my-4">
+        <%= @post.posts_comment %>
+      </div>
+      <div class="d-flex justify-content-between">
+        <strong class>コメント ： <%= @post.comments.count %> 件</strong>
+      </div>
+      <% @post.comments.each do |comment| %>
+        <div class="d-flex justify-content-between my-3">
+          <div>
+            <%= comment.get_comment_date %></br>
+            <p>
+              <%= link_to user_path(comment.user_id) do %>
+                <%= image_tag comment.user.get_profile_image(50) %>
+                <%= comment.user.name %>
+              <% end %>
+              <% if comment.user.id == @post.user_id %>
+                <Strong class = "text-light bg-dark">投稿主</strong>
+              <% end %>
+            </p>
+          </div>
+        </div>
+        <div class="d-flex justify-content-between">
+          <div>
+            <%= comment.comment_word %>
+          </div>
+        </div>
+        <div class="d-flex justify-content-between my-1">
+          <div class="align-self-center">
+            <% if user_signed_in? && !current_user.is_deleted %>
+              <% if comment.user.id == current_user.id %>
+                <%= link_to "編集", edit_post_comment_path(@post,comment), class:"btn btn-success" %>
+                <%= link_to "削除", post_comment_path(@post,comment), method: :delete, class:"btn btn-danger", "data-confirm" => "OKボタンを押すと削除します。本当に削除しますか？"  %>
+              <% end %>
+            <% end %>
+          </div>
+        </div>
+      <% end %>
+      <% if user_signed_in? && !current_user.is_deleted %>
+        <div class="d-flex justify-content-between my-5">
+          <%= form_with model: [@post, @comment] do |f| %>
+            <div class="d-flex justify-content-between">
+              <div>
+                <%= f.text_field :comment_word, placeholder: "コメント入力欄", class: 'form-control', size: "75", maxlength: "40" %>
+              </div>
+              <div>
+                <%= f.submit "コメント", class:"btn btn-primary"  %>
+              </div>
+            </div>
+          <% end %>
+        </div>
+      <% end %>
+      <div class="d-flex justify-content-between my-3">
+      <% if user_signed_in? && !current_user.is_deleted %>
+        <% if @post.favorited?(current_user) %>
+          <p>
+            <%= link_to post_favorite_path(@post), method: :delete do %>
+              <i class="fas fa-heart"></i><%= @post.favorites.count %> いいね
+            <% end %>
+          </p>
+        <% else %>
+          <p>
+            <%= link_to post_favorites_path(@post), method: :post do %>
+              <i class="far fa-heart"></i><%= @post.favorites.count %> いいね
+            <% end %>
+          </p>
+        <% end %>
+      <% else %>
+        <p>
+          <i class="fas fa-heart"></i><%= @post.favorites.count %> いいね
+        </p>
+      <% end %>
+      </div>
+      <% if user_signed_in? && !current_user.is_deleted %>
+        <% if @post.user_id == current_user.id %>
+          <div class="d-flex justify-content-lg-between">
+            <%= link_to "編集", edit_post_path(@post.id), class:"btn btn-success btn-block" %>
+          </div>
+        <% end %>
+      <% end %>
+    </div>
+  </div>
+</div>
