@@ -10,9 +10,6 @@
   <div class="field">
     <strong>
       <%= f.label :password, "パスワード" %>
-      <% if @minimum_password_length %>
-        (<%= @minimum_password_length %>文字以上)
-      <% end %>
     </strong></br>
     <%= f.password_field :password, autocomplete: "current-password" %>
   </div>

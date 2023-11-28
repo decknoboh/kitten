@@ -3,11 +3,11 @@
   <%= render 'layouts/error_messages', model: f.object %>
   <div class="field">
     <strong><%= f.label :name, "ユーザー名（ニックネーム）" %></strong></br>
-    <%= f.text_field :name, :placeholder => "ねこは太郎", maxlength: "20"  %>
+    <%= f.text_field :name, :placeholder => "こねこ太郎", maxlength: "20"  %>
   </div>
   <div class="field">
     <strong><%= f.label :email, "メールアドレス" %></strong></br>
-    <%= f.email_field :email, :placeholder => "nekoha@example.co.jp" %>
+    <%= f.email_field :email, :placeholder => "kitten@example.co.jp" %>
   </div>
   <div class="field">
     <strong><%= f.label :self_introduction, "自己紹介文" %></strong></br>

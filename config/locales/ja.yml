@@ -1,0 +1,50 @@
+ja:
+  enums:
+    # ユーザーモデル
+    user:
+      # 性別
+      sex:
+        another: "その他"
+        male: "男"
+        famale: "女"
+
+  activerecord:
+    models:
+      user: "会員"
+      post: "投稿"
+      comment: "コメント"
+      favorite: "いいね"
+      admin: "管理者"
+      type: "種類"
+
+    attributes:
+      user:
+        current_password: "現在のパスワード"
+        email: "メールアドレス"
+        name: "ユーザー名"
+        sex: "性別"
+        self_introduction: "自己紹介文"
+        is_deleted: "退会ステータス"
+        password: "パスワード"
+        password_confirmation: "パスワード (確認用) "
+        encrypted_password: "暗号化パスワード"
+      post:
+        title: "タイトル名"
+        posts_comment: "投稿コメント"
+      comment:
+        comment_word: "コメント内容"
+      admin:
+        email: "メールアドレス"
+        password: "パスワード"
+      type:
+        name: "種類名"
+        body_length: "体長"
+        country: "原産国"
+        detail: "詳細"
+
+  errors:
+    format: "%{attribute}%{message}"
+    messages:
+      blank: "を入力してください"
+      confirmation: "と%{attribute}の入力が一致しません"
+      record_invalid: "バリデーションに失敗しました: %{errors}"

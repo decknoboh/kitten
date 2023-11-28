@@ -8,7 +8,7 @@ class Public::PostsController < ApplicationController
     elsif params["model"]  == 'post'
       key_word =  "%#{ActiveRecord::Base.sanitize_sql_like(params[:word].to_s)}%"
       @posts = Post.where("title like ? or posts_comment like ? ", key_word, key_word).page(params[:page]).per(10).order(id: "DESC")
-    elsif params["model"]  == 'user'。
+    elsif params["model"]  == 'user'
       key_word =  "%#{ActiveRecord::Base.sanitize_sql_like(params[:word].to_s)}%"
       @posts =  Post.joins(:user).where("users.name like ?", key_word).page(params[:page]).per(10).order(id: "DESC")
     end
