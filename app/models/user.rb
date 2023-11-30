@@ -19,7 +19,7 @@ class User < ApplicationRecord
   enum sex: { another: 0, male: 1, famale: 2 }
 
   def self.guest
-    find_or_create_by!(email: 'guest@nekoha.com') do |user|
+    find_or_create_by!(email: 'guest@kitten.com') do |user|
       user.password = SecureRandom.urlsafe_base64
       user.password_confirmation = user.password
       user.name = 'ゲスト'

@@ -17,12 +17,10 @@ Rails.application.routes.draw do
     get 'users/unsubscribe' => 'users#unsubscribe', as: 'unsubscribe'
     patch 'users/goodbye' => 'users#goodbye', as: 'goodbye'
     resources :users, only: [:show] do
-
       get 'posts'
       get 'comments'
       get 'favorites'
     end
-
     resources :posts do
       resources :comments, only: [:create,:edit,:update,:destroy]
       resources :favorites, only: [:create, :destroy]
@@ -31,6 +29,7 @@ Rails.application.routes.draw do
   end
 
   devise_for :admin, skip: [:registrations, :passwords] ,controllers: {
+
     sessions: "admin/sessions"
   }
 
